@@ -95,7 +95,7 @@ func (l *LspServer) TextDocumentComplete(ctx context.Context, vs lsp.CompletionP
 	if preCompStr == "#" {
 		// 5.2）输入的为#代码补全
 		compVar = getDefaultHashtag(comResult)
-		preStr = "#"
+		//preStr = "#"
 	} else if (preCompStr == "\"" || preCompStr == "'" || preCompStr == " ") && paramCandidateType != nil {
 		// 5.3）特殊的补全，开头为 " 或是 ' 或是 空格
 		if preCompStr == "\"" {

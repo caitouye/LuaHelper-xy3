@@ -408,7 +408,7 @@ func (g *GlobalConfig) IntialGlobalVar() {
 	g.CompKeyMap["::"] = true
 
 	g.CompKeyMap["end"] = true
-	g.CompKeyMap["goto"] = true
+	g.CompKeyMap["goto"] = false
 	g.CompKeyMap["in"] = true
 	g.CompKeyMap["local"] = true
 	g.CompKeyMap["not"] = true
@@ -419,7 +419,7 @@ func (g *GlobalConfig) IntialGlobalVar() {
 	g.CompKeyMap["nil"] = true
 	g.CompKeyMap["true"] = true
 	g.CompKeyMap["self"] = true
-	g.CompKeyMap["continue"] = true
+	g.CompKeyMap["continue"] = false
 	g.CompKeyMap["_G"] = true
 	g.CompKeyMap["local"] = true
 
@@ -442,6 +442,11 @@ func (g *GlobalConfig) IntialGlobalVar() {
 	g.CompSnippetMap["then .. end"] = SnippetItem{
 		InsertText: "then" + "\n" + "\t" + "${0:}" + "\n" + "end",
 		Detail:     "then" + "\n\n" + "end",
+	}
+
+	g.CompSnippetMap["then return end"] = SnippetItem{
+		InsertText: "then return end",
+		Detail:     "then return end",
 	}
 
 	g.CompSnippetMap["for i = .."] = SnippetItem{

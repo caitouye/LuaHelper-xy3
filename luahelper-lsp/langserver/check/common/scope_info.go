@@ -126,6 +126,45 @@ func (scope *ScopeInfo) FindLocVar(name string, loc lexer.Location) (*VarInfo, b
 	return nil, false
 }
 
+// FindLocVar2 新的方式查找局部变量，检查局部的引用是否为全局变量 local string=string
+func (scope *ScopeInfo) FindLocVar2(name string, loc lexer.Location) (*VarInfo, bool) {
+	locInfoList := scope.LocVarMap[name]
+	if locInfoList == nil {
+		// 当前没有找到，判断上层是否有找的
+		if scope.Parent != nil {
+			return scope.Parent.FindLocVar(name, loc)
+		}
+
+		return nil, false
+	}
+
+	// 需要倒序遍历
+	for i := len(locInfoList.VarVec) - 1; i >= 0; i-- {
+		locVar := locInfoList.VarVec[i]
+
+		if !locVar.IsCorrectPosition(loc) {
+			continue
+		}
+		if locVar.VarType == LuaTypeRefer {
+			exp := locVar.ReferExp
+			switch nameExp := (exp).(type) {
+			case *ast.NameExp:
+				if nameExp.Name == name {
+					return nil, false
+				}
+			}
+		}
+		return locVar, true
+	}
+
+	// 当前没有找到，判断上层是否有找的
+	if scope.Parent != nil {
+		return scope.Parent.FindLocVar(name, loc)
+	}
+
+	return nil, false
+}
+
 // 判断点坐标是否在位置范围内
 // line从1开始，column从0开始
 func isInLocation(loc *lexer.Location, line, column int) bool {

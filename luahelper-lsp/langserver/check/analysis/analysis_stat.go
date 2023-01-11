@@ -878,7 +878,7 @@ func (a *Analysis) checkLeftAssign(valExp ast.Exp) (needDefine bool, flagG bool,
 		strVec = append(strVec, strKeyName)
 
 		strName = splitArray[0]
-		if varTemp, ok := scope.FindLocVar(strName, loc); ok {
+		if varTemp, ok := scope.FindLocVar2(strName, loc); ok {
 			varInfo = varTemp
 			return
 		}

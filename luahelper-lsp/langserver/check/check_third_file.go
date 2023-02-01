@@ -160,7 +160,7 @@ func (a *AllProject) scanFileIncludeAllFiles(third *results.AnalysisThird, strFi
 		// 修复自定义import被当作dofile引入全局变量的问题
 		if referInfo.ReferType == common.ReferTypeFrame {
 			subReferType := common.GConfig.GetReferFrameSubType(referInfo.ReferTypeStr)
-			if subReferType == common.ReferTypeRequire {
+			if subReferType != common.RtypeRequire {
 				continue
 			}
 		}
@@ -223,14 +223,23 @@ func (a *AllProject) HandleNotCheckThirdFile() {
 	thirdStruct := results.CreateAnalysisThirdAllStruct()
 	a.thirdStruct = thirdStruct
 
-	if len(a.allFilesMap) == 0 {
-		log.Debug("allNotIncludeFile num is zore, return")
-		return
-	}
+	dirManager := common.GConfig.GetDirManager()
+	if len(common.GConfig.GlobalFiles) > 0 {
+		for _, strFile := range common.GConfig.GlobalFiles {
+			path := dirManager.MatchAllDirReferFile(strFile, strFile)
+			thirdStruct.AllFile[path] = true
+			thirdStruct.AllIncludeFile[path] = true
+		}
+	} else {
+		if len(a.allFilesMap) == 0 {
+			log.Debug("allNotIncludeFile num is zore, return")
+			return
+		}
 
-	for strFile := range a.allFilesMap {
-		thirdStruct.AllFile[strFile] = true
-		thirdStruct.AllIncludeFile[strFile] = true
+		for strFile := range a.allFilesMap {
+			thirdStruct.AllFile[strFile] = true
+			thirdStruct.AllIncludeFile[strFile] = true
+		}
 	}
 
 	log.Debug("allIncludeFile num: %d", len(thirdStruct.AllFile))
@@ -263,12 +272,19 @@ func (a *AllProject) HandleAllThirdFile() {
 	thirdStruct := results.CreateAnalysisThirdAllStruct()
 	a.thirdStruct = thirdStruct
 
-	for strFile := range a.allFilesMap {
-		if allProjectIncludeFile[strFile] {
-			continue
+	dirManager := common.GConfig.GetDirManager()
+	if len(common.GConfig.GlobalFiles) > 0 {
+		for _, strFile := range common.GConfig.GlobalFiles {
+			thirdStruct.AllFile[dirManager.MatchAllDirReferFile(strFile, strFile)] = true
 		}
+	} else {
+		for strFile := range a.allFilesMap {
+			if allProjectIncludeFile[strFile] {
+				continue
+			}
 
-		thirdStruct.AllFile[strFile] = true
+			thirdStruct.AllFile[strFile] = true
+		}
 	}
 
 	for strFile := range a.clientExpFileMap {

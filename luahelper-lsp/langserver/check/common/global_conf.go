@@ -29,6 +29,9 @@ type GlobalConfig struct {
 	// 如果是包含工程的入口文件，配置读取，后台专门定制的特性
 	ProjectFiles []string
 
+	// 只将这些文件的全局变量添加到_G中
+	GlobalFiles []string
+
 	// 是否开启告警
 	showWarnFlag bool
 
@@ -268,6 +271,7 @@ type (
 		AnntotateSets         []AnntotateSet      `json:"AnntotateSets"`         // 自动推导的注解方式
 		OtherDir              string              `json:"OtherDir"`              // 引入另外一个目录，可以用于设置引入额外LuaHelper注解格式文件夹
 		OpenErrorTypes        []int               `json:"OpenErrorTypes"`        // 开启的告警项
+		GlobalFiles           []string            `json:"GlobalFiles"`           // 只将这些文件的全局变量添加到_G中
 	}
 )
 
@@ -643,6 +647,7 @@ func (g *GlobalConfig) ReadConfig(strDir, configFileName string, checkFlagList [
 	g.dirManager.setConfigRelativeDir(jsonConfig.BaseDir)
 
 	g.ProjectFiles = jsonConfig.ProjectFiles
+	g.GlobalFiles = jsonConfig.GlobalFiles
 
 	g.ReferMatchPathFlag = (jsonConfig.ReferMatchPathFlag == 1)
 	g.showWarnFlag = (jsonConfig.ShowWarnFlag == 1)

@@ -47,7 +47,7 @@ jobs:
           go-version: 1.17
 
       - name: Build
-        run: cd luahelper-lsp && go build -o ../ -v ./...
+        run: cd luahelper-lsp && go build -o ./ -v ./...
 
       #- name: Test
         #run: cd luahelper-lsp && go test -v ./...
@@ -103,7 +103,7 @@ jobs:
           # Making the staging area
           mkdir -p ${STAGING}
           # Copying binary and runtime files to staging area
-          cp -r README.MD CONTRIBUTING.md LICENSE CHANGELOG luahelper-vscode/server ${BIN_NAME} ${STAGING}
+          cp README.MD CONTRIBUTING.md LICENSE CHANGELOG luahelper-vscode/server luahelper-lsp/${BIN_NAME} ${STAGING}
           # Creating release assets
           pushd "${STAGING}/" >/dev/null
           if [[ "${{ matrix.target }}" = windows ]]; then

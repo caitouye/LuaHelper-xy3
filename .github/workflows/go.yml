@@ -68,6 +68,7 @@ jobs:
             BIN_NAME="${{ env.BIN_NAME }}.exe"
           else
             PKG_SUFFIX="tar.gz"
+            BIN_NAME="${{ env.BIN_NAME }}"
           fi
           # Package name w/ version
           PKG_BASENAME="${{ env.PROJECT }}-${PKG_VERSION}-${{ matrix.platform }}"
@@ -80,13 +81,13 @@ jobs:
           echo PKG_NAME=${PKG_NAME}                   >> $GITHUB_OUTPUT
           echo PKG_PATH="${PKG_STAGING}/${PKG_NAME}"  >> $GITHUB_OUTPUT
           echo PKG_STAGING=${PKG_STAGING}             >> $GITHUB_OUTPUT
-          echo BIN_NAME=${BIN_NAME}                   >> $GITHUB_OUTPUT
+          echo BIN_PATH="luahelper-lsp/${BIN_NAME}"     >> $GITHUB_OUTPUT
     
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.vars.outputs.PKG_BASENAME }}
           path: |
-            ${{ steps.vars.outputs.BIN_NAME }}
+            ${{ steps.vars.outputs.BIN_PATH }}
             README.MD
             CONTRIBUTING.md
             LICENSE
@@ -99,11 +100,10 @@ jobs:
         run: |
           STAGING=${{ steps.vars.outputs.PKG_STAGING }}
           NAME=${{ steps.vars.outputs.PKG_NAME }}
-          BIN_NAME=${{ steps.vars.outputs.BIN_NAME }}
           # Making the staging area
           mkdir -p ${STAGING}
           # Copying binary and runtime files to staging area
-          cp README.MD CONTRIBUTING.md LICENSE CHANGELOG luahelper-vscode/server luahelper-lsp/${BIN_NAME} ${STAGING}
+          cp README.MD CONTRIBUTING.md LICENSE CHANGELOG luahelper-vscode/server ${{ steps.vars.outputs.BIN_PATH }} ${STAGING}
           # Creating release assets
           pushd "${STAGING}/" >/dev/null
           if [[ "${{ matrix.target }}" = windows ]]; then

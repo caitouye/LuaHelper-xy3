@@ -98,6 +98,8 @@ func (a *Analysis) cgFuncDefExp(node *ast.FuncDefExp) *common.FuncInfo {
 	scope := a.curScope
 	subFi := common.CreateFuncInfo(fi, fi.FuncLv+1, node.Loc, node.IsVararg, scope, a.curResult.Name)
 	subFi.IsColon = node.IsColon
+	subFi.ClassName = node.ClassName
+	subFi.FuncName = node.FuncName
 
 	fileResult := a.curResult
 	fileResult.InertNewFunc(subFi)
@@ -116,6 +118,11 @@ func (a *Analysis) cgFuncDefExp(node *ast.FuncDefExp) *common.FuncInfo {
 
 		// 函数所有的参数放入数组进去，函数代码提示的时候有用
 		subFi.ParamList = append(subFi.ParamList, param)
+	}
+
+	if a.isSecondTerm() {
+		//获取参数与返回值的注解类型
+		a.loadFuncParamAnnType(subFi)
 	}
 
 	// 备份

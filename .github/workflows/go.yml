@@ -110,7 +110,7 @@ jobs:
           # Making the staging area
           mkdir -p ${STAGING}
           # Copying binary and runtime files to staging area
-          cp README.MD CONTRIBUTING.md LICENSE CHANGELOG luahelper-vscode/server ${{ steps.vars.outputs.BIN_PATH }} ${STAGING}
+          cp -r README.MD CONTRIBUTING.md LICENSE CHANGELOG luahelper-vscode/server ${{ steps.vars.outputs.BIN_PATH }} ${STAGING}
           # Creating release assets
           pushd "${STAGING}/" >/dev/null
           if [[ "${{ matrix.target }}" = windows ]]; then

@@ -1,4 +1,4 @@
----@class stringlib @The type *string* represents immutable sequences of bytes. Lua is 8-bit clean: strings can contain any 8-bit value, including embedded zeros('`\0`'). Lua is also encoding-agnostic; it makes no assumptions about the contents of a string. [`View online doc`](https://www.lua.org/manual/5.4/manual.html#6.4)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/6.4"])
+---@class stringlib @The type *string* represents immutable sequences of bytes. Lua is 8-bit clean: strings can contain any 8-bit value, including embedded zeros('`\0`'). Lua is also encoding-agnostic; it makes no assumptions about the contents of a string. [`View online doc`](https://www.lua.org/manual/5.1/manual.html#6.4)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/6.4"])
 string = {}
 
 --- Returns the internal numerical codes of the characters `s[i]`, `s[i+1]`,
@@ -11,7 +11,7 @@ string = {}
 ---@param i? integer
 ---@param j? integer
 ---@return integer
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.byte)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.byte"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.byte)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.byte"])
 function string.byte(s, i, j) end
 
 
@@ -21,7 +21,7 @@ function string.byte(s, i, j) end
 ---
 --- Note that numerical codes are not necessarily portable across platforms.
 ---@return string
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.char)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.char"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.char)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.char"])
 function string.char(byte, ...) end
 
 --- Returns a string containing a binary representation (*a binary chunk*) of
@@ -37,7 +37,7 @@ function string.char(byte, ...) end
 ---@param f      function
 ---@param strip? boolean
 ---@return string
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.dump)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.dump"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.dump)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.dump"])
 function string.dump(f, strip) end
 
 --- Looks for the first match of `pattern` in the string `s`. If it finds a
@@ -59,7 +59,7 @@ function string.dump(f, strip) end
 ---@return integer start
 ---@return integer end
 ---@return ... captured
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.find)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.find"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.find)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.find"])
 function string.find(s, pattern, init, plain) end
 
 --- Returns a formatted version of its variable number of arguments following
@@ -70,7 +70,7 @@ function string.find(s, pattern, init, plain) end
 ---@param s string
 ---@vararg string
 ---@return string
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.format)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.format"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.format)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.format"])
 function string.format(s, ...) end
 
 --- Returns an iterator function that, each time it is called, returns the
@@ -100,7 +100,7 @@ function string.format(s, ...) end
 ---@param pattern string
 ---@param init?   integer
 ---@return fun():string, table
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.gmatch)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.gmatch"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.gmatch)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.gmatch"])
 function string.gmatch(s, pattern, init) end
 
 --- Returns a copy of `s` in which all (or the first `n`, if given)
@@ -134,14 +134,14 @@ function string.gmatch(s, pattern, init) end
 ---@param n       integer
 ---@return string
 ---@return integer count
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.gsub)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.gsub"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.gsub)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.gsub"])
 function string.gsub(s, pattern, repl, n) end
 
 --- Receives a string and returns its length. The empty string `""` has
 --- length 0. Embedded zeros are counted, so `"a\000bc\000"` has length 5.
 ---@param s string
 ---@return integer
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.len)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.len"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.len)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.len"])
 function string.len(s) end
 
 --- Receives a string and returns a copy of this string with all uppercase
@@ -149,7 +149,7 @@ function string.len(s) end
 --- definition of what an uppercase letter is depends on the current locale.
 ---@param s string
 ---@return string
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.lower)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.lower"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.lower)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.lower"])
 function string.lower(s) end
 
 --- Looks for the first *match* of `pattern` in the string `s`. If it
@@ -161,27 +161,8 @@ function string.lower(s) end
 ---@param pattern string
 ---@param init?   integer
 ---@return string captured
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.match)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.match"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.match)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.match"])
 function string.match(s, pattern, init) end
-
---- Returns a binary string containing the values `v1`, `v2`, etc. packed (that
---- is, serialized in binary form) according to the format string `fmt`.
----@version >lua5.3
----@param fmt string
----@param v1  string
----@param v2? string
----@vararg string
----@return string binary
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.pack)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.pack"])
-function string.pack(fmt, v1, v2, ...) end
-
---- Returns the size of a string resulting from `string.pack` with the given
---- format. The format string cannot have the variable-length options '`s`' or '`z`'
----@version >lua5.3
----@param fmt string
----@return integer
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.packsize)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.packsize"])
-function string.packsize(fmt) end
 
 --- Returns a string that is the concatenation of `n` copies of the string
 --- `s` separated by the string `sep`. The default value for `sep` is the empty
@@ -194,13 +175,13 @@ function string.packsize(fmt) end
 ---@param n    integer
 ---@param sep? string
 ---@return string
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.rep)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.rep"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.rep)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.rep"])
 function string.rep(s, n, sep) end
 
 --- Returns a string that is the string `s` reversed.
 ---@param s string
 ---@return string
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.reverse)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.reverse"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.reverse)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.reverse"])
 function string.reverse(s) end
 
 --- Returns the substring of `s` that starts at `i` and continues until
@@ -218,25 +199,13 @@ function string.reverse(s) end
 ---@param i  integer
 ---@param j? integer
 ---@return string
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.sub)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.sub"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.sub)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.sub"])
 function string.sub(s, i, j) end
-
---- Returns the values packed in string `s` according to the format string
---- `fmt`. An optional `pos` marks where to start reading in `s` (default is 1).
---- After the read values, this function also returns the index of the first
---- unread byte in `s`.
----@version >lua5.3
----@param fmt  string
----@param s    string
----@param pos? integer
----@return string
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.unpack)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.unpack"])
-function string.unpack(fmt, s, pos) end
 
 --- Receives a string and returns a copy of this string with all lowercase
 --- letters changed to uppercase. All other characters are left unchanged. The
 --- definition of what a lowercase letter is depends on the current locale.
 ---@param s string
 ---@return string
---[`View online doc`](https://www.lua.org/manual/5.4/manual.html#pdf-string.upper)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/54/manual.html/pdf-string.upper"])
+--[`View online doc`](https://www.lua.org/manual/5.1/manual.html#pdf-string.upper)  |  [`View local doc`](command:extension.luahelper.doc?["en-us/51/manual.html/pdf-string.upper"])
 function string.upper(s) end

@@ -265,7 +265,7 @@ function revealWebviewPanel(workPath, webviewPanel, state) {
 function activateLuaDoc(workPath, disposables, LuaDoc) {
     disposables.push(vscode.commands.registerCommand(LuaDoc.OpenCommand, (uri) => {
         try {
-            createWebviewPanel(workPath, disposables, LuaDoc.ViewType, uri || "en-us/54/readme.html");
+            createWebviewPanel(workPath, disposables, LuaDoc.ViewType, uri || "en-us/51/readme.html");
         } catch (error) {
             console.error(error)
         }

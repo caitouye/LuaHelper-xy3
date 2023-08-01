@@ -41,7 +41,7 @@ func (a *AllProject) HandleFileEventChanges(fileEventVec []FileEventStruct) (cha
 		if fileEvents.Type == FileEventCreated {
 			a.allFilesMap[strFile] = common.CompleteFilePathToPreStr(strFile)
 			a.fileIndexInfo.InsertOneFile(strFile)
-			
+
 			needAgainFileVec = append(needAgainFileVec, strFile)
 			if dirManager.IsInDir(strFile) {
 				needReferFileMap[strFile] = struct{}{}
@@ -72,7 +72,7 @@ func (a *AllProject) HandleFileEventChanges(fileEventVec []FileEventStruct) (cha
 		}
 
 		if a.thirdStruct != nil {
-			if _, ok := a.thirdStruct.AllIncludeFile[strFile]; ok {
+			if _, ok := a.thirdStruct.AllFile[strFile]; ok {
 				//log.Debug("strFile=%s is belong third files", strFile)
 				thirdFlag = true
 			}

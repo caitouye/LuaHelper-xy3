@@ -54,7 +54,7 @@ func recvThirdFile(third *results.AnalysisThird, thirdChan thirdFileChan) {
 	third.FileErrorMap[thirdChan.strFile] = thirdChan.returnThirdFile.FileResult.CheckErrVec
 }
 
-//  进行第三轮分析，散落的文件
+// 进行第三轮分析，散落的文件
 func (a *AllProject) handleFiles(third *results.AnalysisThird) {
 	var fileList []string
 	for strFile := range third.AllFile {
@@ -155,14 +155,6 @@ func (a *AllProject) scanFileIncludeAllFiles(third *results.AnalysisThird, strFi
 	for _, referInfo := range fileResult.ReferVec {
 		if !referInfo.Valid || referInfo.ReferValidStr == "" {
 			continue
-		}
-
-		// 修复自定义import被当作dofile引入全局变量的问题
-		if referInfo.ReferType == common.ReferTypeFrame {
-			subReferType := common.GConfig.GetReferFrameSubType(referInfo.ReferTypeStr)
-			if subReferType != common.RtypeRequire {
-				continue
-			}
 		}
 
 		strFileValid := referInfo.ReferValidStr
@@ -273,22 +265,23 @@ func (a *AllProject) HandleAllThirdFile() {
 	a.thirdStruct = thirdStruct
 
 	dirManager := common.GConfig.GetDirManager()
-	if len(common.GConfig.GlobalFiles) > 0 {
-		for _, strFile := range common.GConfig.GlobalFiles {
-			thirdStruct.AllFile[dirManager.MatchAllDirReferFile(strFile, strFile)] = true
-		}
-	} else {
-		for strFile := range a.allFilesMap {
-			if allProjectIncludeFile[strFile] {
-				continue
-			}
+	for _, strFile := range common.GConfig.GlobalFiles {
+		s := dirManager.MatchAllDirReferFile(strFile, strFile)
+		thirdStruct.AllFile[s] = true
+		thirdStruct.AllIncludeFile[s] = true
+	}
 
-			thirdStruct.AllFile[strFile] = true
+	for strFile := range a.allFilesMap {
+		if allProjectIncludeFile[strFile] {
+			continue
 		}
+
+		thirdStruct.AllFile[strFile] = true
 	}
 
 	for strFile := range a.clientExpFileMap {
 		thirdStruct.AllFile[strFile] = true
+		thirdStruct.AllIncludeFile[strFile] = true
 	}
 
 	log.Debug("allIncludeFile num: %d, allNotIncludeFile: %d", len(allProjectIncludeFile), len(thirdStruct.AllFile))
@@ -298,9 +291,9 @@ func (a *AllProject) HandleAllThirdFile() {
 	}
 
 	// 所有散落的文件，组成一个新的符号表，_G的符号表
-	for strFile := range thirdStruct.AllFile {
-		a.scanFileIncludeAllFiles(thirdStruct, strFile)
-	}
+	//for strFile := range thirdStruct.AllFile {
+	//	a.scanFileIncludeAllFiles(thirdStruct, strFile)
+	//}
 
 	log.Debug("allfiles num:%d, scanFileIncludeAllFiles num:%d", len(thirdStruct.AllFile), len(thirdStruct.AllIncludeFile))
 	// 散落的文件，所有隐含加载的所有文件

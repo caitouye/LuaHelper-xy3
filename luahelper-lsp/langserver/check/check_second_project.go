@@ -2,6 +2,7 @@ package check
 
 import (
 	"luahelper-lsp/langserver/check/analysis"
+	"luahelper-lsp/langserver/check/common"
 	"luahelper-lsp/langserver/check/results"
 	"luahelper-lsp/langserver/log"
 	"luahelper-lsp/langserver/pathpre"
@@ -257,6 +258,14 @@ func (a *AllProject) scanProjectAllFiles(second *results.SingleProjectResult, st
 	for _, referInfo := range fileResult.ReferVec {
 		if !referInfo.Valid || referInfo.ReferValidStr == "" {
 			continue
+		}
+
+		// 修复自定义import被当作dofile引入全局变量的问题
+		if referInfo.ReferType == common.ReferTypeFrame {
+			subReferType := common.GConfig.GetReferFrameSubType(referInfo.ReferTypeStr)
+			if subReferType == common.RtypeImport {
+				continue
+			}
 		}
 
 		strFileValid := referInfo.ReferValidStr
